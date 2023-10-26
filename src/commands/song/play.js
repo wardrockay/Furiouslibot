@@ -2,7 +2,7 @@
 const { createAudioPlayer, createAudioResource, joinVoiceChannel } = require('@discordjs/voice');
 const ytdl = require('ytdl-core');
 
-const queue = new Map();
+const queue = require('./variable');
 
 module.exports = {
     /**

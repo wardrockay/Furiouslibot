@@ -1,7 +1,7 @@
 const path = require('path');
 const getAllFiles = require('./getAllFiles');
 
-module.exports = (exceptions = []) => {
+module.exports = (exceptions = ["variable.js"]) => {
   let localCommands = [];
 
   const commandCategories = getAllFiles(
