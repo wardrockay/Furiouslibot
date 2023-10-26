@@ -10,7 +10,7 @@ module.exports = {
     description: 'Passe à la chanson suivante',
     type: 1,
 
-    callback: async (client, interaction) => {
+    callback: (client, interaction) => {
     const serverQueue = queue.get(interaction.guildId);
 
     if (!interaction.member.voice.channel) return interaction.reply('Vous devez être dans un canal vocal pour sauter la musique.');
