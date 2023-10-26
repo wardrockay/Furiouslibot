@@ -77,7 +77,7 @@ function play(guild, song) {
     const serverQueue = queue.get(guild.id);
    
     if (!song) {
-        serverQueue.voiceChannel.leave();
+        serverQueue.connection.disconnect();
         queue.delete(guild.id);
         return;
     }
