@@ -7,7 +7,6 @@ const {
 
 module.exports = {
   /**
-   *
    * @param {Client} client
    * @param {Interaction} interaction
    */
