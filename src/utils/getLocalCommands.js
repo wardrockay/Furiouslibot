@@ -16,6 +16,7 @@ module.exports = (exceptions = ["variable.js"]) => {
       const commandObject = require(commandFile);
 
       if (exceptions.includes(commandObject.name)) {
+        console.log('hello');
         continue;
       }
 
