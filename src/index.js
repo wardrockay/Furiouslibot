@@ -18,7 +18,7 @@ const client = new Client({
 
   try {
     
-    await mongoose.connect(process.env.MONGODB_URI, {keepAlive: true});
+    //await mongoose.connect(process.env.MONGODB_URI, {keepAlive: true});
     console.log('Connected to DB')
     eventHandler(client);
 

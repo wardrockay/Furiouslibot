@@ -7,6 +7,8 @@ const {
    SlashCommandBuilder
   } = require('discord.js');
 const mongoose = require('mongoose');
+const ticketSchema = require('../../schema/ticketSchema');
+
 
 module.exports = {
     /**
@@ -14,9 +16,24 @@ module.exports = {
    * @param {Interaction} interaction
    */
 
-    name: 'ticket',
-    description: 'Poste un ticket de demande de support.',
+    name: 'ticket-setup',
+    description: 'Setup the ticket message and system',
     type: 1,
+    option:[
+        {
+            name: 'channel',
+            description: 'Le channel dans lequel tu souhaite envoyer les tickets',
+            type: 1,
+            channel_types: 0,
+        },
+        {
+            name: 'catégorie',
+            description: 'La catégorie dans lequel tu souhaite envoyer les tickets',
+            type: 1,
+            channel_types: 4,
+        },
+    ],
+
 
     callback: async (client, interaction) => {
         interaction.reply("salut")

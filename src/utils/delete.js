@@ -11,6 +11,6 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
 
 // for global commands
-rest.put(Routes.applicationCommands("1166353851092316242"), { body: [] })
+rest.put(Routes.applicationCommands("1168601905098932354"), { body: [] })
 	.then(() => console.log('Successfully deleted all application commands.'))
 	.catch(console.error);

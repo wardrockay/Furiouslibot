@@ -12,6 +12,25 @@ module.exports = {
    * @param {Interaction} interaction
    */
 
+  name: 'ban',
+  description: 'Bans a member from this server.',
+  options: [
+    {
+      name: 'target-user',
+      description: 'The user you want to ban.',
+      type: ApplicationCommandOptionType.Mentionable,
+      required: true,
+    },
+    {
+      name: 'reason',
+      description: 'The reason you want to ban.',
+      type: ApplicationCommandOptionType.String,
+    },
+  ],
+  
+  permissionsRequired: [PermissionFlagsBits.BanMembers],
+  botPermissions: [PermissionFlagsBits.BanMembers],
+
   callback: async (client, interaction) => {
     const targetUserId = interaction.options.get('target-user').value;
     const reason =
@@ -62,21 +81,5 @@ module.exports = {
     }
   },
 
-  name: 'ban',
-  description: 'Bans a member from this server.',
-  options: [
-    {
-      name: 'target-user',
-      description: 'The user you want to ban.',
-      type: ApplicationCommandOptionType.Mentionable,
-      required: true,
-    },
-    {
-      name: 'reason',
-      description: 'The reason you want to ban.',
-      type: ApplicationCommandOptionType.String,
-    },
-  ],
-  permissionsRequired: [PermissionFlagsBits.BanMembers],
-  botPermissions: [PermissionFlagsBits.BanMembers],
+
 };
