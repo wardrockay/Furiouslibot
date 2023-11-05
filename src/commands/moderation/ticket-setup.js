@@ -1,16 +1,13 @@
 const {
-   PermissionsBitField,
    EmbedBuilder,
    ChannelType,
    ActionRowBuilder,
    StringSelectMenuBuilder,
-   SlashCommandBuilder,
+   ApplicationCommandOptionType,
    PermissionFlagsBits,
   } = require('discord.js');
 const mongoose = require('mongoose');
 const ticketSchema = require('../../schema/ticketSchema');
-const { filterFormats } = require('ytdl-core');
-
 
 module.exports = {
     /**
@@ -19,29 +16,32 @@ module.exports = {
    */
 
     name: 'ticket-setup',
-    description: 'Setup the ticket message and system',
+    description: 'test Setup the ticket system',
     type: 1,
-    option:[
+    options:[
         {
             name: 'channel',
             description: 'Le channel dans lequel tu souhaite envoyer les tickets',
-            type: 1,
-            channel_types: 0,
+            type: ApplicationCommandOptionType.Channel,
         },
         {
-            name: 'catégorie',
+            name: 'category',
             description: 'La catégorie dans lequel tu souhaite envoyer les tickets',
-            type: 1,
-            channel_types: 4,
+            type: ApplicationCommandOptionType.Integer,
+            channel_types: ChannelType.GuildCategory,
         },
     ],
     permissionsRequired: [PermissionFlagsBits.Administrator],
 
     callback: async (client, interaction) => {
-        const channel = interaction.options.getChannel('channel')
-        const category = interaction.options.getChannel('categorie')
 
-        ticketSchema.findOne({ guild: interaction.guild.id}, async (err, data) => {
+        const channel = interaction.options.getChannel('channel')
+        const category = interaction.options.getChannel('category')
+        console.log(channel)
+
+        try {
+            const data = await ticketSchema.findOne({ guild: interaction.guild.id})
+
             if(!data){
                 ticketSchema.create({
                     guild: interaction.guild.id,
@@ -53,10 +53,12 @@ module.exports = {
                 await interaction.reply('Vous avez déjà un system de ticket configuré')
                 return;
             }
-        })
+        } catch (error) {
+            console.log(error);
+        }
+        
 
         const embed = new EmbedBuilder()
-        .setColor('blue')
         .setTitle('ticket system')
         .setDescription('Si vous avez un probleme, creer un ticket pour les membres du staff')
         .setFooter({text: `${interaction.guild.name} ticket`})

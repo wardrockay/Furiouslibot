@@ -18,14 +18,16 @@ const client = new Client({
 
   try {
     
-    //await mongoose.connect(process.env.MONGODB_URI, {keepAlive: true});
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to DB')
-    eventHandler(client);
+    
 
   } catch (error) {
     console.log(`error: ${error}`)
   }
 
 })();
+
+eventHandler(client);
 
 client.login(process.env.DISCORD_TOKEN);

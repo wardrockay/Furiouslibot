@@ -27,7 +27,6 @@ module.exports = {
       type: ApplicationCommandOptionType.String,
     },
   ],
-  
   permissionsRequired: [PermissionFlagsBits.BanMembers],
   botPermissions: [PermissionFlagsBits.BanMembers],
 
