@@ -66,7 +66,7 @@ module.exports = {
         const menu = new ActionRowBuilder()
         .addComponents(
             new StringSelectMenuBuilder()
-            .setCustomId('select')
+            .setCustomId('ticketTopicSelector')
             .setMaxValues(1)
             .setPlaceholder('Choisi un topic')
             .addOptions(
