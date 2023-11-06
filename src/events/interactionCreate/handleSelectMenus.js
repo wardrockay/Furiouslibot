@@ -6,7 +6,6 @@ module.exports = async (client, interaction) => {
   if (!interaction.isAnySelectMenu()) return;
 
   const MessageComponents = getMessageComponents();
-  console.log(interaction.customId)
 
   try {
     const MessageComponentObject = MessageComponents.find(

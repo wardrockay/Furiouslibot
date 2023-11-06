@@ -21,14 +21,16 @@ module.exports = {
     options:[
         {
             name: 'channel',
-            description: 'Le channel dans lequel tu souhaite envoyer les tickets',
+            description: 'Le channel dans lequel tu souhaite mettre le system de tickets',
             type: ApplicationCommandOptionType.Channel,
+            required: true,
+
         },
         {
             name: 'category',
-            description: 'La catégorie dans lequel tu souhaite envoyer les tickets',
-            type: ApplicationCommandOptionType.Integer,
-            channel_types: ChannelType.GuildCategory,
+            description: 'La catégorie dans lequel tu souhaite envoyer les tickets créé',
+            type: ApplicationCommandOptionType.Channel,
+            required: true,
         },
     ],
     permissionsRequired: [PermissionFlagsBits.Administrator],
