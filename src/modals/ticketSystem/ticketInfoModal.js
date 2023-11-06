@@ -11,6 +11,7 @@ const {
     ButtonBuilder,
     ButtonStyle,
     ChannelType,
+    PermissionsBitField,
   } = require('discord.js');
 
 const ticketSchema = require('../../schema/ticketSchema')
@@ -25,7 +26,8 @@ module.exports = {
   callback: async (client, interaction) => {
       console.log('WorksFine')
 
-    const data = ticketSchema.findOne({guild: interaction.guild.id})
+    const data = await ticketSchema.findOne({ guild: interaction.guild.id})
+    
 
       if(data){
 
@@ -37,6 +39,8 @@ module.exports = {
         if(posChannel) return await interaction.reply({content: `Vous avez déjà un ticket ouvert - ${posChannel}`, ephemeral: true});
 
         const category = data.channel;
+
+        
 
         const embed = new EmbedBuilder()
         .setTitle(`Ticket de ${interaction.user.unsername}`)
@@ -58,7 +62,17 @@ module.exports = {
         let channel = await interaction.guild.channels.create({
             name: `ticket-${interaction.user.id}`,
             type: ChannelType.GuildText,
-            parent: `${category}`
+            parent: `${category}`,
+            permissionOverwrites: [
+              {
+                id: interaction.guild.id,
+                deny: [PermissionsBitField.Flags.ViewChannel]
+              },
+              {
+                id: interaction.user.id,
+                allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ReadMessageHistory]
+              }
+            ]
             
         })
 
@@ -66,6 +80,5 @@ module.exports = {
         await interaction.reply({content: `ton ticket est ouvert dans ${channel}`, ephemeral: true});
       }
       
-
   }
 }

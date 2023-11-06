@@ -15,11 +15,21 @@ const {
      description: 'Disable the ticket system',
      type: 1,
      permissionsRequired: [PermissionFlagsBits.Administrator],
+
+    
  
      callback: async (client, interaction) => {
-        ticketSchema.deleteMany({guild: interaction.guild.id}, async (err, data) => {
-            await interaction.reply({content: "Your ticket system has been removed", ephemeral: true})
-        })
+
+        try {
+            const data = await ticketSchema.deleteMany({guild: interaction.guild.id});
+            if(data){
+                await interaction.reply({content: "Your ticket system has been removed", ephemeral: true})
+            }
+         } catch (error) {
+            console.log(error)
+         }
+
+
 
      }
  };

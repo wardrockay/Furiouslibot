@@ -39,7 +39,7 @@ module.exports = {
 
         const channel = interaction.options.getChannel('channel')
         const category = interaction.options.getChannel('category')
-        console.log(channel)
+       
 
         try {
             const data = await ticketSchema.findOne({ guild: interaction.guild.id})

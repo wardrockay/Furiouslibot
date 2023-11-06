@@ -3,7 +3,7 @@ const getMessageComponents = require('../../utils/getMessageComponents');
 
 module.exports = async (client, interaction) => {
 
-  if (!interaction.isAnySelectMenu()) return;
+  if (!interaction.isMessageComponent()) return;
 
   const MessageComponents = getMessageComponents();
 
