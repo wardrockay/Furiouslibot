@@ -12,7 +12,7 @@ const {
     */
  
      name: 'ticket-disable',
-     description: 'Disable the ticket system',
+     description: 'Désactiver systeme de ticket',
      type: 1,
      permissionsRequired: [PermissionFlagsBits.Administrator],
 
@@ -23,7 +23,7 @@ const {
         try {
             const data = await ticketSchema.deleteMany({guild: interaction.guild.id});
             if(data){
-                await interaction.reply({content: "Your ticket system has been removed", ephemeral: true})
+                await interaction.reply({content: "Votre systeme de ticket à été désinstallé", ephemeral: true})
             }
          } catch (error) {
             console.log(error)

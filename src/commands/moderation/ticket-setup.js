@@ -92,6 +92,6 @@ module.exports = {
         )
 
         await channel.send({embed: [embed], components: [menu]});
-        await interaction.reply({ content: `Your ticket System has been set in ${channel}`, ephemeral: true});
+        await interaction.reply({ content: `Votre systeme de ticket à été configuré dans ${channel}`, ephemeral: true});
     }
 };
