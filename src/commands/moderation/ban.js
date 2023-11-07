@@ -1,6 +1,4 @@
 const {
-  Client,
-  Interaction,
   ApplicationCommandOptionType,
   PermissionFlagsBits,
 } = require('discord.js');

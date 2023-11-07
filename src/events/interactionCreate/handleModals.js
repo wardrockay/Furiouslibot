@@ -1,4 +1,3 @@
-const { devs, testServer } = require('../../../config.json');
 const getmodals = require('../../utils/getModals');
 
 module.exports = async (client, interaction) => {

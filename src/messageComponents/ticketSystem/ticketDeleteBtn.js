@@ -1,14 +1,3 @@
-const {
-    Client,
-    Interaction,
-    ApplicationCommandOptionType,
-    PermissionFlagsBits,
-    ModalBuilder,
-    TextInputBuilder,
-    TextInputStyle,
-    ActionRowBuilder,
-  } = require('discord.js');
-
 const ticketSchema = require('../../schema/ticketSchema')
 
 module.exports = {

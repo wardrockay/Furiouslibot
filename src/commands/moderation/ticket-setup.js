@@ -1,6 +1,5 @@
 const {
    EmbedBuilder,
-   ChannelType,
    ActionRowBuilder,
    StringSelectMenuBuilder,
    ApplicationCommandOptionType,

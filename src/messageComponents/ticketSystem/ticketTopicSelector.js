@@ -1,8 +1,5 @@
 const {
-    Client,
-    Interaction,
-    ApplicationCommandOptionType,
-    PermissionFlagsBits,
+
     ModalBuilder,
     TextInputBuilder,
     TextInputStyle,
