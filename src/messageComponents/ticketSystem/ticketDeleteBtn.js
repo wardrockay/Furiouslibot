@@ -11,7 +11,6 @@ module.exports = {
   name: 'ticketDeleteBtn',
 
   callback: async (client, interaction) => {
-    console.log('delete btn pressed')
     await interaction.channel.delete().catch(err => {});
 
     const dmEmbed = new EmbedBuilder()

@@ -32,11 +32,10 @@ module.exports = {
         if(posChannel) return await interaction.reply({content: `Vous avez déjà un ticket ouvert - ${posChannel}`, ephemeral: true});
 
         const category = data.channel;
-
         
 
         const embed = new EmbedBuilder()
-        .setTitle(`Ticket de ${interaction.user.name}`)
+        .setTitle(`Ticket de ${interaction.user.username}`)
         .setDescription('Voici le ticket que tu as ouvert')
         .addFields({name: `Email`, value: `${emailInput}`})
         .addFields({name: `username`, value: `${usernameInput}`})
