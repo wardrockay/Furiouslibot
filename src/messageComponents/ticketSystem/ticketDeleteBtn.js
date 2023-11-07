@@ -1,7 +1,8 @@
 const {
   EmbedBuilder,
 } = require('discord.js');
-const ticketSchema = require('../../schema/ticketSchema')
+const ticketSchema = require('../../schema/ticketSchema');
+const closeFn = require('../../../function/ticketSystem/closeFn');
 
 module.exports = {
   /**
@@ -11,17 +12,6 @@ module.exports = {
   name: 'ticketDeleteBtn',
 
   callback: async (client, interaction) => {
-    await interaction.channel.delete().catch(err => {});
-
-    const dmEmbed = new EmbedBuilder()
-    .setTitle(`Ton ticket a été fermé`)
-    .setDescription('Merci de nous avoir contacté. Si tu as besoin de quoi que se soit d\'autre, n\'hésite pas à creer un nouveau ticket.')
-    .setFooter({text: `ticket dans ${interaction.guild.name}`})
-    .setTimestamp()
-
-    await interaction.member.send({embeds: [dmEmbed]}).catch(err => {
-      return;
-    })
-
+    closeFn(client, interaction)
   }
 }

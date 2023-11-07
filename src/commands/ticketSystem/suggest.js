@@ -15,7 +15,7 @@ const {
     */
  
      name: 'suggest',
-     description: 'participe activement à l\'amélioration du bot. Soumets tes idées et suggestions directement au développeur !',
+     description: 'participe à l\'amélioration du bot. Soumets tes idées et suggestions directement au développeur !',
      type: 1,
  
      callback: async (client, interaction) => {

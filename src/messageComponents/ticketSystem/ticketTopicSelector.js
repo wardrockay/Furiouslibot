@@ -47,7 +47,6 @@ module.exports = {
       const thirdActionRaw = new ActionRowBuilder().addComponents(reason)
 
       modal.addComponents(firstActionRaw, secondActionRaw, thirdActionRaw);
-
       interaction.showModal(modal)
 
       let choices;

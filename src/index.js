@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Client, IntentsBitField } = require('discord.js');
 const eventHandler = require('./handlers/eventHandler');
 const mongoose = require('mongoose');
+const getLocalCommands = require('./utils/getLocalCommands');
 
 
 const client = new Client({
@@ -28,5 +29,6 @@ const client = new Client({
 })();
 
 eventHandler(client);
+
 
 client.login(process.env.DISCORD_TOKEN);

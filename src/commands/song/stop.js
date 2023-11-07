@@ -1,4 +1,4 @@
-const queue = require('./variable');
+const queue = require('../../utils/variable.js');
 
 module.exports = {
 

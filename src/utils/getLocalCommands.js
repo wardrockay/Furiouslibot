@@ -1,7 +1,7 @@
 const path = require('path');
 const getAllFiles = require('./getAllFiles');
 
-module.exports = (exceptions = ["variable.js"]) => {
+module.exports = (exceptions = []) => {
   let localCommands = [];
 
   const commandCategories = getAllFiles(
@@ -16,7 +16,7 @@ module.exports = (exceptions = ["variable.js"]) => {
       const commandObject = require(commandFile);
 
       if (exceptions.includes(commandObject.name)) {
-        console.log('hello');
+        
         continue;
       }
 
