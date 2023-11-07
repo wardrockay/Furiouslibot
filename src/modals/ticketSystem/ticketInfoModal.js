@@ -36,7 +36,7 @@ module.exports = {
         
 
         const embed = new EmbedBuilder()
-        .setTitle(`Ticket de ${interaction.user.unsername}`)
+        .setTitle(`Ticket de ${interaction.user.name}`)
         .setDescription('Voici le ticket que tu as ouvert')
         .addFields({name: `Email`, value: `${emailInput}`})
         .addFields({name: `username`, value: `${usernameInput}`})
