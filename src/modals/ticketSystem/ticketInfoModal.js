@@ -68,7 +68,7 @@ module.exports = {
             
         })
 
-        let msg = await channel.send({embeds: [embed], components: [btnDelete]});
+        await channel.send({embeds: [embed], components: [btnDelete]});
         await interaction.reply({content: `ton ticket est ouvert dans ${channel}`, ephemeral: true});
       }
       
