@@ -35,7 +35,7 @@ const {
      permissionsRequired: [PermissionFlagsBits.Administrator],
  
      callback: async (client, interaction) => {
- 
+        interaction.reply({content:'Cette commande est en cours de developpement', ephemeral: true} )
          
      }
  };
