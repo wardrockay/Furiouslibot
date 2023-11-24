@@ -1,6 +1,8 @@
 
 const { createAudioPlayer, createAudioResource, joinVoiceChannel } = require('@discordjs/voice');
 const ytdl = require('ytdl-core');
+const { Client, IntentsBitField } = require('discord.js');
+
 
 const queue = require('../../utils/variable.js');
 
@@ -21,19 +23,20 @@ module.exports = {
     }],
 
     callback: async (client, interaction) => {
+        await interaction.deferReply();
         const args = interaction.options.data.map(opt => opt.value);
         const serverQueue = queue.get(interaction.guildId);
         const voiceChannel = interaction.member.voice.channel;
 
-       // console.log(voiceChannel)
-        if (!voiceChannel) return interaction.reply('Vous devez être dans un canal vocal pour jouer de la musique.');
-        
+        // console.log(voiceChannel)
+        if (!voiceChannel) return interaction.editReply('Vous devez être dans un canal vocal pour jouer de la musique.');
+
         if (!args[0]) {
-            return interaction.reply('Veuillez fournir une URL valide.');
+            return interaction.editReply('Veuillez fournir une URL valide.');
         }
-        
+
         try {
-            const songInfo = await ytdl.getInfo(args[0]);   
+            const songInfo = await ytdl.getInfo(args[0]);
             const song = {
                 title: songInfo.videoDetails.title,
                 url: songInfo.videoDetails.video_url,
@@ -58,16 +61,17 @@ module.exports = {
                 });
                 queueConstruct.connection = connection;
                 play(interaction.guild, queueConstruct.songs[0]);
-                interaction.reply(`Joue maintenant : ${song.title}`);
+                interaction.editReply(`Joue maintenant : ${song.title}`);
+                
             } else {
                 serverQueue.songs.push(song);
                 //console.log(serverQueue.songs)
-                return interaction.reply(`${song.title} a été ajouté à la file d'attente!`);
-                
+                return interaction.editReply(`${song.title} a été ajouté à la file d'attente!`);
+
             }
         } catch (error) {
             console.error("Erreur lors de la récupération des informations de la vidéo :", error);
-            return interaction.reply("Une erreur s'est produite lors de la récupération des informations de la vidéo. Veuillez réessayer avec une URL valide.");
+            return interaction.editReply("Une erreur s'est produite lors de la récupération des informations de la vidéo. Veuillez réessayer avec une URL valide.");
         }
     }
 
@@ -75,7 +79,7 @@ module.exports = {
 
 function play(guild, song) {
     const serverQueue = queue.get(guild.id);
-   
+
     if (!song) {
         serverQueue.connection.disconnect();
         queue.delete(guild.id);
@@ -90,7 +94,7 @@ function play(guild, song) {
     serverQueue.player.on('stateChange', (oldState, newState) => {
         if (newState.status === 'idle' && oldState.status === 'playing') {
             serverQueue.songs.shift();
-            play(guild, serverQueue.songs[0]);                    
+            play(guild, serverQueue.songs[0]);
         }
     });
     serverQueue.player.on('error', error => {
