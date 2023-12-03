@@ -1,6 +1,7 @@
 const areCommandsDifferent = require('../../utils/areCommandsDifferent');
 const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands');
+const config = require('../../../config.json');
 
 module.exports = async (client) => {
   // Map both guild ID and name
@@ -24,6 +25,12 @@ module.exports = async (client) => {
         const existingCommand = applicationCommands.cache.find(
           (cmd) => cmd.name === name
         );
+
+        if (guildInfo.id !== config.supportServer && name === 'leave') {
+          console.log(`Skipping command "${name}" in guild ${guildInfo.name} (ID: ${guildInfo.id}) as it's not the specified guild.`);
+          continue;
+        }
+  
 
         if (existingCommand) {
           if (localCommand.deleted) {

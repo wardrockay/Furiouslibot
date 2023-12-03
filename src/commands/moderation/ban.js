@@ -2,6 +2,8 @@ const {
   ApplicationCommandOptionType,
   PermissionFlagsBits,
 } = require('discord.js');
+const { config } = require('dotenv');
+const config1 = require('../../../config.json');
 
 module.exports = {
   /**
@@ -48,7 +50,12 @@ module.exports = {
       );
       return;
     }
-
+    if (targetUser.id === config1.OwnerID) {
+      await interaction.editReply(
+        "Tu ne peux pas ban cette personne car c'est le créateur du bot."
+      );
+      return;
+    }
     const targetUserRolePosition = targetUser.roles.highest.position; // Highest role of the target user
     const requestUserRolePosition = interaction.member.roles.highest.position; // Highest role of the user running the cmd
     const botRolePosition = interaction.guild.members.me.roles.highest.position; // Highest role of the bot
