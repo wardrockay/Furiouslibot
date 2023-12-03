@@ -3,26 +3,32 @@ const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands');
 
 module.exports = async (client) => {
-  try {
-    const Guilds = client.guilds.cache.map(guild => guild.id);
-    for (const Guild of Guilds) {
-      const localCommands = getLocalCommands();
-      const applicationCommands = await getApplicationCommands(
-        client,
-        Guild
-      );
+  // Map both guild ID and name
+  const guildsInfo = client.guilds.cache.map(guild => ({
+    id: guild.id,
+    name: guild.name
+  }));
+
+  const localCommands = getLocalCommands();
+
+  for (const guildInfo of guildsInfo) {
+    console.log(`------------------------------${guildInfo.name}------------------------------`);
+    try {
+      const applicationCommands = await getApplicationCommands(client, guildInfo.id);
+      
+      console.log(`Processing guild: ${guildInfo.name} (ID: ${guildInfo.id})`);
 
       for (const localCommand of localCommands) {
         const { name, description, options } = localCommand;
 
-        const existingCommand = await applicationCommands.cache.find(
+        const existingCommand = applicationCommands.cache.find(
           (cmd) => cmd.name === name
         );
 
         if (existingCommand) {
           if (localCommand.deleted) {
             await applicationCommands.delete(existingCommand.id);
-            console.log(`🗑 Deleted command "${name}".`);
+            console.log(`🗑 Deleted command "${name}" in guild ${guildInfo.name} (ID: ${guildInfo.id}).`);
             continue;
           }
 
@@ -32,13 +38,11 @@ module.exports = async (client) => {
               options,
             });
 
-            console.log(`🔁 Edited command "${name}".`);
+            console.log(`🔁 Edited command "${name}" in guild ${guildInfo.name} (ID: ${guildInfo.id}).`);
           }
         } else {
           if (localCommand.deleted) {
-            console.log(
-              `⏩ Skipping registering command "${name}" as it's set to delete.`
-            );
+            console.log(`⏩ Skipping registering command "${name}" in guild ${guildInfo.name} (ID: ${guildInfo.id}) as it's set to delete.`);
             continue;
           }
 
@@ -48,12 +52,12 @@ module.exports = async (client) => {
             options,
           });
 
-          console.log(`👍 Registered command "${name}."`);
+          console.log(`👍 Registered command "${name}" in guild ${guildInfo.name} (ID: ${guildInfo.id}).`);
         }
       }
-      console.log('Commands up to date for server ID: '+Guild);
+      console.log(`Commands up to date for guild: ${guildInfo.name} (ID: ${guildInfo.id})`);
+    } catch (error) {
+      console.error(`Error processing guild ${guildInfo.name} (ID: ${guildInfo.id}): ${error.message}`);
     }
-  } catch (error) {
-    console.log(`There was an error: ${error}`);
   }
 };
